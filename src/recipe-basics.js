@@ -3,7 +3,7 @@
 
 /* c8 ignore start */
 // Set to true to see console examples when running this file directly
-const SHOW_EXAMPLES = false;
+const SHOW_EXAMPLES = true;
 /* c8 ignore stop */
 
 /**
@@ -30,7 +30,16 @@ function createRecipe(name, cookingTime, servings = 4) {
   // - steps: an empty array to store cooking steps
   // - dateCreated: today's date (use new Date().toLocaleDateString())
 
-  // YOUR CODE HERE
+  const recipeReturn = {
+    id: Date.now(),
+    name: name,
+    cookingTime: cookingTime,
+    servings: servings,
+    ingredients: [],
+    steps: [],
+    dateCreated: new Date().toLocaleDateString(),
+  };
+  return recipeReturn;
 }
 
 /**
@@ -53,7 +62,13 @@ const addIngredient = function (recipe, name, amount, unit) {
   // Add it to the recipe's ingredients array
   // Return the modified recipe
 
-  // YOUR CODE HERE
+  const ingredientReturn = {
+    name: name,
+    amount: amount,
+    unit: unit,
+  };
+  recipe["ingredients"].push(ingredientReturn);
+  return recipe;
 };
 
 /**
@@ -71,7 +86,8 @@ function addStep(recipe, instruction) {
   // Add the instruction to the recipe's steps array
   // Return the modified recipe
 
-  // YOUR CODE HERE
+  recipe["steps"].push(instruction);
+  return recipe;
 }
 
 /**
@@ -90,7 +106,10 @@ function removeStep(recipe, stepIndex) {
   // If valid, remove the step at that index using splice()
   // Return the modified recipe
 
-  // YOUR CODE HERE
+  if (stepIndex >= 0 && stepIndex <= recipe["steps"].length) {
+    recipe["steps"].splice(stepIndex, 1)
+  }
+  return recipe;
 }
 
 /* c8 ignore start */

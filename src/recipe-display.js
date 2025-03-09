@@ -6,7 +6,7 @@ import { createRecipe, addIngredient, addStep } from './recipe-basics.js';
 
 /* c8 ignore start */
 // Set to true to see console examples when running this file directly
-const SHOW_EXAMPLES = false;
+const SHOW_EXAMPLES = true;
 /* c8 ignore stop */
 
 /**
@@ -24,7 +24,11 @@ const timePerServing = recipe => {
   // Create a concise arrow function (with implicit return)
   // that divides the recipe's cookingTime by its servings
 
-  // YOUR CODE HERE
+  const func = (recipe) => recipe.cookingTime / recipe.servings;
+  console.log(recipe.cookingTime);
+  console.log(recipe.servings);
+  console.log(recipe.cookingTime / recipe.servings);
+  return func(recipe);
 };
 
 /**
@@ -44,7 +48,16 @@ const getStepsList = (recipe) => {
   // Add a newline character (\n) after each step
   // Return the formatted string
 
-  // YOUR CODE HERE
+  if (recipe["steps"].length === 0) {
+    return "No steps added yet";
+  }
+  else {
+    let recipeFormat = ``;
+    for (let i = 0; i < recipe["steps"].length; ++i) {
+      recipeFormat += `${i + 1}. ${recipe["steps"][i]}\n`;
+    }
+    return recipeFormat;
+  }
 };
 
 /**
@@ -65,7 +78,16 @@ const getIngredientsList = (recipe) => {
   // Add a newline character (\n) after each ingredient
   // Return the formatted string
 
-  // YOUR CODE HERE
+  if (recipe["ingredients"].length === 0) {
+    return "No ingredients added yet";
+  }
+  else {
+    let ingredFormat = ``;
+    for (let i = 0; i < recipe["ingredients"].length; ++i) {
+      ingredFormat += `${recipe["ingredients"][i].amount} ${recipe["ingredients"][i].unit} of ${recipe["ingredients"][i].name}\n`;
+    }
+    return ingredFormat;
+  }
 };
 
 /**
@@ -86,7 +108,12 @@ function formatRecipe(recipe) {
   // Use template literals (backticks) for multi-line formatting
   // Return the complete formatted string
 
-  // YOUR CODE HERE
+  let steps = getStepsList(recipe);
+  let ingredients = getIngredientsList(recipe);
+  let tPS = timePerServing(recipe);
+
+  let fullFormat = `${recipe.name}\nfor ${recipe.servings} people \nCooking time: ${recipe.cookingTime} minutes \nTime per serving: ${tPS.toFixed(1)} minutes\n${ingredients} \n${steps}`;
+  return fullFormat;
 }
 
 /* c8 ignore start */
